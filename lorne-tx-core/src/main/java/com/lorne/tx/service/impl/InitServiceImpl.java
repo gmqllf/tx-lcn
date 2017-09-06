@@ -1,5 +1,7 @@
 package com.lorne.tx.service.impl;
 
+import com.lorne.tx.db.IBaseProxy;
+import com.lorne.tx.db.service.DataSourceService;
 import com.lorne.tx.mq.service.NettyService;
 import com.lorne.tx.compensate.service.CompensateService;
 import com.lorne.tx.service.InitService;
@@ -26,8 +28,17 @@ public class InitServiceImpl implements InitService {
     @Autowired
     private TimeOutService timeOutService;
 
+    @Autowired
+    private DataSourceService dataSourceService;
+
+    @Autowired
+    private IBaseProxy baseProxy;
+
     @Override
     public void start() {
+
+        baseProxy.setDataSourceService(dataSourceService);
+
         nettyService.start();
         logger.info("socket-start..");
 
