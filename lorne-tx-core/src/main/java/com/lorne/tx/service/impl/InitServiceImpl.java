@@ -37,6 +37,10 @@ public class InitServiceImpl implements InitService {
     @Override
     public void start() {
 
+        /**
+         * 由于SQLSessionFactory等类的加载方式导致，无法通过
+         * bean自动注入的方式注入给代理对象，因此通过初始化的时候再为其赋值。
+         */
         baseProxy.setDataSourceService(dataSourceService);
 
         nettyService.start();
