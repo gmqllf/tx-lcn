@@ -68,6 +68,10 @@ public class TxRunningTransactionServerImpl implements TransactionServer {
 
             Task waitTask = ConditionUtils.getInstance().getTask(kid);
 
+            if(waitTask==null){
+                throw new ServiceException("修改事务组状态异常." + txGroupId);
+            }
+
             //lcn 连接已经开始等待时.
             while (waitTask!=null&&!waitTask.isAwait()) {
                 TimeUnit.MILLISECONDS.sleep(1);
