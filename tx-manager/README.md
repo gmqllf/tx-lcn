@@ -17,6 +17,13 @@
 通知事务(notify)     
 
 
+
+## TxManager与控制方的通讯协议
+
+见 [TxManager与事务控制方的通讯协议](protocol.md)    
+
+
+
 ## LCN设计原理 
 
 v1.0设计原理  - LCN的第一个版本
@@ -42,11 +49,5 @@ v1.0设计原理  - LCN的第一个版本
 从2.3 到 3.0 性能可给本地事务相媲美。   
 
 ... ...   
-
-
-
-## TxManager与控制方的通讯协议
-
-见 [TxManager与事务控制方的通讯协议](protocol.md)    
 
 
