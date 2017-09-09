@@ -47,7 +47,7 @@ v1.0设计原理  - LCN的第一个版本
 
 ## TxManager与控制方的通讯协议
 
-见 [TxManager与事务控制方的通讯协议](protocol.md) 
+见 [TxManager与事务控制方的通讯协议](protocol.md)    
 
 
 
