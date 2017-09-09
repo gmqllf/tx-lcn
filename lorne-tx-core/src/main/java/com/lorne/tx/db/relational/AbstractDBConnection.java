@@ -68,7 +68,6 @@ public abstract class AbstractDBConnection implements Connection,IResource<Conne
             String type = "db";
             TaskGroup taskGroup = TaskGroupManager.getInstance().createTask(transactionLocal.getKid(),type);
             transactionLocal.setType(type);
-            TxTransactionLocal.setCurrent(transactionLocal);
             waitTask = taskGroup.getCurrent();
             logger.info("task-create-> " + waitTask.getKey());
         }
