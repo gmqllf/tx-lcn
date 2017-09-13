@@ -44,8 +44,10 @@ public class LCNDataSourceProxy extends AbstractResourceProxy<Connection,Abstrac
     @Override
     protected void initDbType() {
         TxTransactionLocal txTransactionLocal = TxTransactionLocal.current();
-        //设置db类型
-        txTransactionLocal.setType("db");
+        if(txTransactionLocal!=null) {
+            //设置db类型
+            txTransactionLocal.setType("db");
+        }
     }
 
     @Override

@@ -39,8 +39,10 @@ public class LCNJedisFactoryProxy extends AbstractResourceProxy<RedisConnection,
     protected void initDbType() {
 
         TxTransactionLocal txTransactionLocal = TxTransactionLocal.current();
-        //设置db类型
-        txTransactionLocal.setType("redis");
+        if(txTransactionLocal!=null) {
+            //设置db类型
+            txTransactionLocal.setType("redis");
+        }
     }
 
     @Override
