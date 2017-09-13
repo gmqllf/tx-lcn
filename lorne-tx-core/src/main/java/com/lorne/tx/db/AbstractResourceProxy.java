@@ -110,15 +110,24 @@ public abstract class AbstractResourceProxy<C,T extends IResource> implements IB
         C lcnConnection = connection;
         TxTransactionLocal txTransactionLocal = TxTransactionLocal.current();
 
-        if (txTransactionLocal != null
-            && StringUtils.isNotEmpty(txTransactionLocal.getGroupId())) {
-            if(TxTransactionCompensate.current()!=null){
+        if (txTransactionLocal != null) {
+
+            //只读的直接返回普通连接.
+            if(txTransactionLocal.getInfo().getTransactional()!=null&&txTransactionLocal.getInfo().getTransactional().readOnly()){
                 return connection;
-            }else if (CompensateService.COMPENSATE_KEY.equals(txTransactionLocal.getGroupId())) {
-                lcnConnection = createConnection(txTransactionLocal, connection);
-            } else if (!txTransactionLocal.isHasStart()) {
-                lcnConnection = createConnection(txTransactionLocal, connection);
             }
+
+            //更新操作的开启LCN分布式事务
+            if(StringUtils.isNotEmpty(txTransactionLocal.getGroupId())){
+                if(TxTransactionCompensate.current()!=null){
+                    return connection;
+                }else if (CompensateService.COMPENSATE_KEY.equals(txTransactionLocal.getGroupId())) {
+                    lcnConnection = createConnection(txTransactionLocal, connection);
+                } else if (!txTransactionLocal.isHasStart()) {
+                    lcnConnection = createConnection(txTransactionLocal, connection);
+                }
+            }
+
 
         }
         return lcnConnection;

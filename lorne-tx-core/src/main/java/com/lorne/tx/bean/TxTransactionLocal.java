@@ -22,6 +22,7 @@ public class TxTransactionLocal {
 
     private String kid;
 
+    private TxTransactionInfo info;
 
     private TransactionRecover recover;
 
@@ -104,5 +105,13 @@ public class TxTransactionLocal {
 
     public String getType() {
         return type;
+    }
+
+    public TxTransactionInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(TxTransactionInfo info) {
+        this.info = info;
     }
 }
