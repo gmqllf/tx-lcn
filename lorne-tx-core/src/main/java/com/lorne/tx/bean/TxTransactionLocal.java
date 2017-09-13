@@ -1,6 +1,7 @@
 package com.lorne.tx.bean;
 
 import com.lorne.tx.compensate.model.TransactionRecover;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 分布式事务远程调用控制对象
@@ -22,11 +23,13 @@ public class TxTransactionLocal {
 
     private String kid;
 
-    private TxTransactionInfo info;
-
     private TransactionRecover recover;
 
     private String type;
+
+    private boolean readOnly;
+
+    private Transactional transactional;
 
     public TransactionRecover getRecover() {
         return recover;
@@ -107,11 +110,19 @@ public class TxTransactionLocal {
         return type;
     }
 
-    public TxTransactionInfo getInfo() {
-        return info;
+
+
+    public boolean isReadOnly() {
+        return readOnly;
     }
 
-    public void setInfo(TxTransactionInfo info) {
-        this.info = info;
+    public Transactional getTransactional() {
+        return transactional;
+    }
+
+    public void setTransactional(Transactional transactional) {
+        this.transactional = transactional;
+        //set readOnly
+        readOnly =  transactional!=null&&transactional.readOnly();
     }
 }

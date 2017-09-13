@@ -46,8 +46,8 @@ public class TxStartTransactionServerImpl implements TransactionServer {
             TxTransactionLocal txTransactionLocal = new TxTransactionLocal();
             txTransactionLocal.setGroupId(groupId);
             txTransactionLocal.setHasStart(true);
+            txTransactionLocal.setTransactional(info.getTransactional());
             txTransactionLocal.setMaxTimeOut(Constants.maxOutTime);
-            txTransactionLocal.setInfo(info);
             TxTransactionLocal.setCurrent(txTransactionLocal);
             Object obj = point.proceed();
             state = 1;

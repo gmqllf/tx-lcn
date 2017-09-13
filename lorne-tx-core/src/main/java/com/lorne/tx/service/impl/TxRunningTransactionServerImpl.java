@@ -40,14 +40,12 @@ public class TxRunningTransactionServerImpl implements TransactionServer {
     @Override
     public Object execute(final ProceedingJoinPoint point, final TxTransactionInfo info) throws Throwable {
 
-
         String kid = KidUtils.generateShortUuid();
         String txGroupId = info.getTxGroupId();
         logger.info("tx-running-start->" + txGroupId);
         long t1 = System.currentTimeMillis();
 
         boolean isHasIsGroup =  group.hasGroup(txGroupId);
-
 
         TransactionRecover recover = new TransactionRecover();
         recover.setId(KidUtils.generateShortUuid());
@@ -60,8 +58,11 @@ public class TxRunningTransactionServerImpl implements TransactionServer {
         txTransactionLocal.setHasStart(false);
         txTransactionLocal.setRecover(recover);
         txTransactionLocal.setKid(kid);
+        txTransactionLocal.setTransactional(info.getTransactional());
         txTransactionLocal.setMaxTimeOut(info.getMaxTimeOut());
         TxTransactionLocal.setCurrent(txTransactionLocal);
+
+
         try {
 
             Object res = point.proceed();

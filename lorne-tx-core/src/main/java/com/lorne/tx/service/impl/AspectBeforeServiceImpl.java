@@ -44,10 +44,10 @@ public class AspectBeforeServiceImpl implements AspectBeforeService {
 
         TransactionInvocation invocation = new TransactionInvocation(clazz, thisMethod.getName(), args, method.getParameterTypes());
 
-        TxTransactionInfo state = new TxTransactionInfo(transaction,transactional,txTransactionLocal,groupId,maxTimeOut,compensate,invocation);
+        TxTransactionInfo info = new TxTransactionInfo(transaction,transactional,txTransactionLocal,groupId,maxTimeOut,compensate,invocation);
 
-        TransactionServer server = transactionServerFactoryService.createTransactionServer(state);
+        TransactionServer server = transactionServerFactoryService.createTransactionServer(info);
 
-        return server.execute(point, state);
+        return server.execute(point, info);
     }
 }

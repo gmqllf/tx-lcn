@@ -111,9 +111,8 @@ public abstract class AbstractResourceProxy<C,T extends IResource> implements IB
         TxTransactionLocal txTransactionLocal = TxTransactionLocal.current();
 
         if (txTransactionLocal != null) {
-
-            //只读的直接返回普通连接.
-            if(txTransactionLocal.getInfo().getTransactional()!=null&&txTransactionLocal.getInfo().getTransactional().readOnly()){
+            //只读操作，直接返回connection
+            if(txTransactionLocal.isReadOnly()){
                 return connection;
             }
 
