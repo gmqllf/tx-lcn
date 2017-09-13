@@ -49,6 +49,7 @@ public abstract class AbstractDBConnection implements Connection,IResource<Conne
 
     private String groupId;
 
+    private boolean readOnly;
 
     protected TxTask waitTask;
 
@@ -99,6 +100,12 @@ public abstract class AbstractDBConnection implements Connection,IResource<Conne
 
     @Override
     public void commit() throws SQLException {
+        if(readOnly){
+            connection.commit();
+            return;
+        }
+
+
         logger.info("commit");
         state = 1;
 
@@ -108,6 +115,12 @@ public abstract class AbstractDBConnection implements Connection,IResource<Conne
 
     @Override
     public void rollback() throws SQLException {
+        if(readOnly){
+            connection.rollback();
+            return;
+        }
+
+
         logger.info("rollback");
         state = 0;
 
@@ -123,6 +136,12 @@ public abstract class AbstractDBConnection implements Connection,IResource<Conne
 
     @Override
     public void close() throws SQLException {
+        if(readOnly){
+            connection.close();
+            return;
+        }
+
+
         if(hasClose){
             hasClose = false;
             return;
@@ -248,6 +267,7 @@ public abstract class AbstractDBConnection implements Connection,IResource<Conne
 
     @Override
     public void setReadOnly(boolean readOnly) throws SQLException {
+        this.readOnly = readOnly;
         connection.setReadOnly(readOnly);
     }
 
