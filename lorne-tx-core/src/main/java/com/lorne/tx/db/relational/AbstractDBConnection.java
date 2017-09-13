@@ -65,10 +65,7 @@ public abstract class AbstractDBConnection implements Connection,IResource<Conne
         compensateList.add(nowCompensate);
 
         if (!CompensateService.COMPENSATE_KEY.equals(transactionLocal.getGroupId())) {
-
-            String type = "db";
-            TaskGroup taskGroup = TaskGroupManager.getInstance().createTask(transactionLocal.getKid(),type);
-            transactionLocal.setType(type);
+            TaskGroup taskGroup = TaskGroupManager.getInstance().createTask(transactionLocal.getKid(),transactionLocal.getType());
             waitTask = taskGroup.getCurrent();
             logger.info("task-create-> " + waitTask.getKey());
         }

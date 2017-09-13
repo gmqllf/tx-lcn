@@ -6,6 +6,8 @@ import com.lorne.tx.bean.TxTransactionCompensate;
 import com.lorne.tx.bean.TxTransactionLocal;
 import com.lorne.tx.compensate.service.CompensateService;
 import com.lorne.tx.db.service.DataSourceService;
+import com.lorne.tx.db.task.TaskGroup;
+import com.lorne.tx.db.task.TaskGroupManager;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
@@ -109,8 +111,11 @@ public abstract class AbstractResourceProxy<C,T extends IResource> implements IB
     protected C initLCNConnection(C connection) {
         C lcnConnection = connection;
         TxTransactionLocal txTransactionLocal = TxTransactionLocal.current();
+        //设置db类型
+        txTransactionLocal.setType("db");
 
         if (txTransactionLocal != null) {
+
             //只读操作，直接返回connection
             if(txTransactionLocal.isReadOnly()){
                 return connection;
