@@ -28,8 +28,8 @@ public class SqlHelper {
                 sql = "CREATE TABLE " + tableName + " (\n" +
                     "  id varchar(10) NOT NULL,\n" +
                     "  retried_count number(3,0) NOT NULL,\n" +
-                    "  create_time datetime  NOT NULL,\n" +
-                    "  last_time datetime  NOT NULL,\n" +
+                    "  create_time date  NOT NULL,\n" +
+                    "  last_time date  NOT NULL,\n" +
                     "  state number(2,0) NOT NULL,\n" +
                     "  l_unique varchar2(32) NOT NULL,\n" +
                     "  group_id varchar2(10) NOT NULL,\n" +
